@@ -22,6 +22,7 @@ export async function scrapeRealEstateNews(): Promise<Record<string, NewsItem[]>
           "https://cafef.vn/tinh-khanh-hoa.html"
         ],
         scraper: scrapeCafef,
+        name: "Cafef",
       },
       {
         urls: [
@@ -29,10 +30,12 @@ export async function scrapeRealEstateNews(): Promise<Record<string, NewsItem[]>
           "https://timkiem.vnexpress.net/?search_q=khanh%20hoa"
         ],
         scraper: scrapeVnExpress,
+        name: "VnExpress",
       },
       {
         urls: ["https://batdongsan.com.vn/tin-tuc/bat-dong-san-khanh-hoa"],
         scraper: scrapeBatDongSan,
+        name: "BatDongSan",
       },
       // Add more sources as needed
     ]
@@ -48,7 +51,8 @@ export async function scrapeRealEstateNews(): Promise<Record<string, NewsItem[]>
     const seenUrls = new Set<string>()
 
     newsArrays.forEach((newsArray, sourceIndex) => {
-      const source = sources[sourceIndex].scraper.name.replace('scrape', '')
+      // const source = sources[sourceIndex].scraper.name.replace('scrape', '')
+      const source = sources[sourceIndex].name
       const uniqueNews = newsArray
         .flat()
         .filter(news => {
